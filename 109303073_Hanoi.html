@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hanoi Tower</title>
+</head>
+<body>
+
+<h1>109303073 陳姿妤</h1>
+<div id="output">
+  <!-- Tower states will be displayed here -->
+</div>
+
+<script>
+function moveDisk(source, destination) {
+  const disk = towers[source].pop();
+  towers[destination].push(disk);
+  displayTowers();
+  updateDisplay(); // Call function to update display in HTML
+}
+
+function hanoi(n, source, auxiliary, destination) {
+  if (n === 1) {
+    moveDisk(source, destination);
+  } else {
+    hanoi(n - 1, source, destination, auxiliary);
+    moveDisk(source, destination);
+    hanoi(n - 1, auxiliary, source, destination);
+  }
+}
+
+function displayTowers() {
+  return `A: ${towers[0]}<br>B: ${towers[1]}<br>C: ${towers[2]}<br>`;
+}
+
+function updateDisplay() {
+  const outputDiv = document.getElementById('output');
+  outputDiv.innerHTML += `${displayTowers()}<hr>`; // Add horizontal line between states
+}
+
+// Initialize towers
+const towers = [[3, 2, 1], [], []];
+
+// Initial tower states
+updateDisplay();
+
+// Solve Tower of Hanoi
+hanoi(3, 0, 1, 2);
+</script>
+
+</body>
+</html>
